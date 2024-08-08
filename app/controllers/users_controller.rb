@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
     def index
         @data = JSON.parse(ApiHandlerService.execute)
-        # HelloNameJob.perform_async("Bishesh", 5)
+        HelloNameJob.perform_async("Bishesh", 5)
     end
 
     def new
