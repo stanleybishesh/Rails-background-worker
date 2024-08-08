@@ -1,0 +1,11 @@
+# config/sidekiq.yml
+
+:queues:
+  - default
+  - apis
+:scheduler:
+  :schedule:
+    hello_world:
+      cron: "0 * * * * *" # Runs once per minute
+      class: DataFetcherJob
+      queue: "apis"
