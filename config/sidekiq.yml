@@ -2,6 +2,6 @@
 
 :scheduler:
   :schedule:
-    ApiJob:
-      cron: "1 * * * * *" # Runs once per minute
-      class: "ApiJob"
+    mailer_job:
+      cron: "0 * * * * *" # Runs once per minute
+      class: "MailerJob"
