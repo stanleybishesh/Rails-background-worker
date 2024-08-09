@@ -1,11 +1,11 @@
 <h1>Add New User</h1>
 
-<%= form_with model: @user do |user|%>
-    <%= user.label :name %>
-    <%= user.text_field :name %><br/>
+<%= form_with model: @user do |form|%>
+    <%= form.label :name %>
+    <%= form.text_field :name %><br/>
 
-    <%= user.label :email %>
-    <%= user.text_field :email %><br/><br/> 
+    <%= form.label :email %>
+    <%= form.text_field :email %><br/><br/> 
 
-    <%= user.submit value:"Submit" %>
+    <%= form.submit value:"Submit" %>
 <% end %>
