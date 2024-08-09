@@ -60,3 +60,5 @@ end
 gem "json", "~> 2.7"
 
 gem 'sidekiq-scheduler', '~> 5.0', '>= 5.0.3'
+
+gem "rake", "~> 13.2"
