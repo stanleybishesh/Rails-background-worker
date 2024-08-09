@@ -1,11 +1,14 @@
 require 'sidekiq-scheduler'
 
 class ApiJob
-  include Sidekiq::Job
+  include Sidekiq::Worker
 
-  sidekiq_options queue: 'apis'
+#   sidekiq_options queue: 'apis'
 
-  def perform(*args)
-
+  def perform
+    data = JSON.parse(ApiHandler.execute)
+    data.map do |user|
+        User.create(name: user['name'], email: user['email'])
+    end
   end
 end

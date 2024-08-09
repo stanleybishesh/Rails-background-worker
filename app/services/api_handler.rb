@@ -1,4 +1,6 @@
-class ApiHandlerService
+require 'rest-client'
+
+class ApiHandler
     URL = "https://jsonplaceholder.typicode.com/users"
 
     def self.execute
@@ -6,7 +8,7 @@ class ApiHandlerService
     end
 
     def self.save
-        @data = JSON.parse(@responses.body)
+        @data = JSON.parse(ApiHandler.execute.body)
         @data.each do |user|
             @post = User.create(name: user['name'], email:user['email']);
             @post.save

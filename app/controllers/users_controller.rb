@@ -1,11 +1,9 @@
 # require 'rest-client'
 
 class UsersController < ApplicationController
-    URL = "https://jsonplaceholder.typicode.com/users"
-
     def index
-        @data = JSON.parse(ApiHandlerService.execute)
-        # HelloNameJob.perform_async("Bishesh", 5)
+        @users = User.all
+        # ApiJob.perform_async()
     end
 
     def new
@@ -13,16 +11,27 @@ class UsersController < ApplicationController
     end
 
     def create 
-        @user = User.new(name: params[:name], email: params[:email])
-        if @user.save
-            redirect_to root_path
-        else
-            render root_path
+        @user = User.new(user_params)
+
+        respond_to do |format|
+            if @user.save
+                UserMailer.with(user: @user).hello_email.deliver_now
+                format.html {redirect_to @user, notice:"User was successfully created."}
+                format.json {render json: @user, status: :created, location: @user}
+            else
+                format.html {render action: 'new'}
+                format.json {render json: @user.errors, status: :unprocessable_entity}
+            end
         end
     end
 
     def database_contents
         @users = User.all
+    end
+
+    private
+    def user_params
+        params.require(:user).permit(:name,:email)
     end
 end
 
